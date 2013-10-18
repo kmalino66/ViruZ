@@ -135,8 +135,6 @@ public class Screen extends JPanel implements Runnable {
 			}
 
 			//Sets the text inside the boxes
-			//fontSize = (int)towerSize / 8;
-			//g.setFont(font);
 			g.drawString("Health :" + user.player.health, (int) ((int)towerSize + (((int)towerSize) / 4) - (((int)towerSize) / 4.5)), 50 + 25 + (5 * (int)towerSize) + (0 * (int)towerSize / 3) + (((int)towerSize / 3) / 2));
 			g.drawString("Money :" + user.player.money, (int)towerSize + (((int)towerSize) / 4) - (int)((int)towerSize / 4.5), 50 + 25 + (5 * (int)towerSize) + (1 * (int)towerSize / 3) + (((int)towerSize / 3) / 2));
 			g.drawString("Wave :" + wave.waveNumber, (int)towerSize + (((int)towerSize) / 4) - (int)((int)towerSize / 4.5), 50 + 25 + (5 * (int)towerSize) + (2 * (int)towerSize / 3) + (((int)towerSize / 3) / 2));

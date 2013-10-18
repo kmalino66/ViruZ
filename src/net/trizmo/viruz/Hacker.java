@@ -93,8 +93,8 @@ public class Hacker implements Cloneable{
 			for(int xP = 0; xP < 10; xP++){
 				for(int yP = 0; yP < 2; yP++) {
 					if(
-							e.getXOnScreen() >= (250/2) + (2 * towerSize) + ((xP) * (towerSize / 2))
-							&& e.getXOnScreen() <= (250/2) + (2 * towerSize) + ((xP + 1) * (towerSize / 2)) 
+							e.getXOnScreen() >= ((int)towerSize) + (2 * towerSize) + ((xP) * (towerSize / 2))
+							&& e.getXOnScreen() <= (int)towerSize + (2 * towerSize) + ((xP + 1) * (towerSize / 2)) 
 							&& e.getYOnScreen() >= 75 + (5 * towerSize) + ((yP) * (towerSize / 2))
 							&& e.getYOnScreen() <= 75 + (5 * towerSize) + ((yP + 1) * (towerSize / 2))){
 						int par1 = (xP * 2) + yP;
