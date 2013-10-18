@@ -21,7 +21,9 @@ public class Shot implements Cloneable{
 	}
 
 	public static void spawnShot(Hacker hacker, int par1X, int par2Y) {
+		@SuppressWarnings("unused")
 		int xPos;
+		@SuppressWarnings("unused")
 		int yPos;
 		xPos = (par1X * (int)Screen.towerSize) + (250/2);
 		yPos = (par2Y * (int)Screen.towerSize) + (int)Screen.towerSize;

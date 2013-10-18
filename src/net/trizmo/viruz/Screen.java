@@ -25,7 +25,7 @@ public class Screen extends JPanel implements Runnable {
 	Frame frame;
 	Wave wave;
 	User user;
-
+	
 	public SpawnPoint spawn;
 
 	@SuppressWarnings("unused")
@@ -98,25 +98,45 @@ public class Screen extends JPanel implements Runnable {
 					g.drawRect((int)towerSize + (x * (int)towerSize), 50 + (y * (int)towerSize), (int)towerSize, (int)towerSize);
 				}
 			}
-			//9
+			
 			//Upgrade Menu
 			g.setColor(Color.GRAY);
 			g.drawRect((int)(10 * towerSize), (int)(5 * towerSize) + 75 , (int)towerSize * 5, (int)towerSize * 3);
+			
+			//Tower Information box
+			for(int i = 0; i < 1; i++){
+				g.drawRect((int)towerSize * 10, (int)towerSize * 6 + 75 + (i * (int)towerSize) / 3, (int)towerSize, (int)towerSize / 3);
+			}
+			
+			//Tower Information text
+			//Creates font;
+			int fontSize;
+			fontSize = (int)towerSize / 8;
+			Font font = new Font("Arial", Font.PLAIN, fontSize);
+
+			g.setFont(font);
+			
+			//Draws Information
+			if(selectedHacker != null){
+				g.drawString("Health: " + selectedHacker.health, (int) ((int)towerSize * 10.25), (int)towerSize * 6 + 75 + (0 * (int)towerSize) / 3 + ((int)towerSize / 3) - (int)towerSize / 12);
+			}
+			
+			//Tower Picture
 			g.drawRect((int)towerSize * 10, (int)towerSize * 5 + 75, (int)towerSize, (int)towerSize);
 			if(selectedHacker != null) {
 				g.drawImage(Hacker.hackerList[selectedHacker.id].texture, (int)(10 * towerSize), (int)(5 * towerSize) + 75, (int)towerSize, (int)towerSize, null);
 			}else{
 				g.drawImage(new ImageIcon("res/textures/Server.png").getImage(), (int)(10 * towerSize), (int)(5 * towerSize) + 75, (int)towerSize, (int)towerSize, null);
 			}
+			
 			//Wave, money, health
 			for (int x = 0; x < 3; x++) {
 				g.drawRect((int)towerSize, 50 + 25 + (5 * (int)towerSize) + (x * ((int)towerSize / 3)), (int)towerSize, (int)towerSize / 3);
 			}
 
 			//Sets the text inside the boxes
-			int fontSize = (int)towerSize / 8;
-			Font font = new Font("Arial", Font.PLAIN, fontSize);
-			g.setFont(font);
+			//fontSize = (int)towerSize / 8;
+			//g.setFont(font);
 			g.drawString("Health :" + user.player.health, (int) ((int)towerSize + (((int)towerSize) / 4) - (((int)towerSize) / 4.5)), 50 + 25 + (5 * (int)towerSize) + (0 * (int)towerSize / 3) + (((int)towerSize / 3) / 2));
 			g.drawString("Money :" + user.player.money, (int)towerSize + (((int)towerSize) / 4) - (int)((int)towerSize / 4.5), 50 + 25 + (5 * (int)towerSize) + (1 * (int)towerSize / 3) + (((int)towerSize / 3) / 2));
 			g.drawString("Wave :" + wave.waveNumber, (int)towerSize + (((int)towerSize) / 4) - (int)((int)towerSize / 4.5), 50 + 25 + (5 * (int)towerSize) + (2 * (int)towerSize / 3) + (((int)towerSize / 3) / 2));
