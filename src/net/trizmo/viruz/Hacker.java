@@ -39,7 +39,7 @@ public class Hacker implements Cloneable{
 	public static final Hacker professionalHacker = new HackerProfessional(			towerID++, 	250, 	45, 	14, 	5, 		1.0, 		2.5).getTextureFile("ProfessionalHacker");
 	public static final Hacker beginnerProgrammer = new HackerBeginnerProgrammer(	towerID++, 	130, 	25, 	14, 	1.5, 	1.0, 		3.1).getTextureFile("BeginnerProgrammer");
 	public static final Hacker advancedProgrammer = new HackerAdvancedProgrammer(	towerID++, 	300, 	50, 	14, 	6.5, 	1.0, 		2.3).getTextureFile("AdvancedProgrammer");
-	public static final Hacker firewall = new HackerFirewall(						towerID++, 	150, 	85, 	0, 		0.0, 	0.0, 		0.0).getTextureFile("Firewall");
+	public static final Hacker firewall = new HackerFirewall(						towerID++, 	150, 	85, 	0, 		0.0, 	0.0, 		0.0).getTextureFile("firewall");
 
 	public Hacker(int id, int cost, int health, int range, double damage, double maxAttackTime, double maxAttackDelay) {
 		if(hackerList[id] != null) {
