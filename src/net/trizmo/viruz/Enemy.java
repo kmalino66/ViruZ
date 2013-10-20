@@ -16,9 +16,9 @@ public class Enemy {
 	public static final Enemy[] enemyList = new Enemy[200];
 //															id			price	damage	health	speed	attackSpeed	currentAttack
 	public static final Enemy trojan = new EnemyTrojan(		enemyID++, 	15, 	4, 		1, 		2.5, 	1.5, 		0.0).getTextureFile("trojan");
-	public static final Enemy worm = new EnemyWorm(			enemyID++,	30,		7,		3,		2.4,	2.0,		0.0).getTextureFile("worm");
-	//public static final Enemy virus = new EnemyVirus(		enemyID++,	50,		11,		25,		5.5,	0.9,		0.0).getTextureFile("virus");
-	//public static final Enemy rootkit = new EnemyRootkit(	enemyID++,	100,	20,		50,		3.5,	0.5,		0.0).getTextureFile("root");
+	public static final Enemy worm = new EnemyWorm(			enemyID++,	30,		5,		2,		2.4,	2.0,		0.0).getTextureFile("worm");
+	public static final Enemy virus = new EnemyVirus(		enemyID++,	50,		11,		25,		5.5,	0.9,		0.0).getTextureFile("virus");
+	public static final Enemy rootkit = new EnemyRootkit(	enemyID++,	100,	20,		50,		3.5,	0.5,		0.0).getTextureFile("rootkit");
 
 	public String textureFile;
 	public Image texture;

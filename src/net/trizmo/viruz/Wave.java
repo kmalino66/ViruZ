@@ -52,10 +52,13 @@ public class Wave {
 		}
 	}
 
+	//Sets the current delay
 	private int currentDelay = 0;
 	private int currentDelayWorm = 0;
 	private int currentDelayVirus = 0;
 	private int currentDelayRootkit = 0;
+	
+	//Sets spawn rates
 	private int spawnRate = 25;
 	private int spawnRateWorm = 30;
 	private int spawnRateVirus = 35;
@@ -72,12 +75,14 @@ public class Wave {
 			worm = true;
 		}
 		if(waveNumber >15) {
-			virus = false;
+			virus = true;
 		}
 		if(waveNumber > 25) {
-			rootkit = false;
+			rootkit = true;
 		}
 		if(waveSpawning){
+			
+			//Executed if trojans are supposed to spawn.
 			if(trojans){
 				if(this.trojansThisRound < this.trojansPerRound * this.waveNumber + this.trojansPerRound * (this.waveNumber - 1)) {
 					if(currentDelay < spawnRate) {
@@ -94,6 +99,7 @@ public class Wave {
 				}
 			}
 
+			//Executes if worms are supposed to spawn.
 			if(worm){
 				if(this.wormsThisRound < this.wormsPerRound * this.waveNumber) {
 					if(currentDelayWorm < spawnRateWorm) {
@@ -110,9 +116,42 @@ public class Wave {
 				}
 
 			}
+			
+			//Executes if viruses are supposed to spawn.
+			if(virus){
+				if(this.virusThisRound < this.virusPerRound * this.waveNumber) {
+					if(currentDelayVirus < spawnRateVirus) {
+						currentDelayVirus++;
+					}else{
+						currentDelayVirus = 0;
+						
+						System.out.println("[Wave] Virus Spawned");
+						this.virusThisRound++;
+						screen.spawn(Enemy.enemyList[2].id);
+					}
+				}else{
+					virus = false;
+				}
+			}
+			
+			//Executes if rootkits are supposed to spawn.
+			if(rootkit){
+				if(this.rookkitThisRound < this.rootkitPerRound * this.waveNumber){
+					if(currentDelayRootkit < spawnRateRootkit){
+						currentDelayRootkit++;
+					}else{
+						currentDelayRootkit = 0;
+						
+						System.out.println("[Wave] Rootkit Spawned");
+						this.rookkitThisRound++;
+						screen.spawn(Enemy.enemyList[3].id);
+					}
+				}else{
+					rootkit = false;
+				}
+			}
 
-
-
+			//This block is for when the spawning is done. 
 			if(!trojans) {
 				if(!worm) {
 					if(!virus) {
@@ -123,26 +162,6 @@ public class Wave {
 				}
 			}
 		}
-
-
-		/*if(this.enemiesThisRound < this.waveNumber * enemiesPerRound){
-			if(currentDelay < spawnRate) {
-				currentDelay++;
-				System.out.println(currentDelay);
-			}else{
-				currentDelay = 0;
-				
-				System.out.println("[Wave] Enemy Spawned");
-				
-				this.enemiesThisRound++;
-				this.screen.spawnEnemy();
-			}
-		}else{
-			this.waveSpawning = false;
-			System.out.println("Wave over");
-		}*/
-
-
 	}
 
 }
