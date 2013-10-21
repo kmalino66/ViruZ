@@ -61,7 +61,6 @@ public class Screen extends JPanel implements Runnable {
 		this.frame.addMouseListener(new MouseHandler(this));
 		this.frame.addMouseMotionListener(new MouseHandler(this));
 
-		//frameHeight = (this.frame.getWidth()) / 16*9;
 		frameWidth = this.frame.getWidth();
 		frameHeight = this.frame.getHeight();
 
@@ -78,8 +77,9 @@ public class Screen extends JPanel implements Runnable {
 		g.clearRect(0, 0, this.frame.getWidth(), this.frame.getHeight());
 
 		if(scene == 0) {
-			g.setColor(Color.blue);
-			g.fillRect(0, 0, this.frame.getWidth(), this.frame.getHeight());
+//			g.setColor(Color.blue);
+//			g.fillRect(0, 0, this.frame.getWidth(), this.frame.getHeight());
+			Paint.paintMenu((int)towerSize, this.frame.getWidth(), this.frame.getHeight(), g);
 		}else if (scene == 1) {
 			//Back
 			g.setColor(Color.green);
