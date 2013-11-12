@@ -20,6 +20,7 @@ public class KeyHandler implements KeyListener {
 
 	public void keyPressed(KeyEvent arg0) {
 		int keyCode = arg0.getKeyCode();
+		System.out.println(keyCode);
 
 	// Checks if the Enter key is pressed
 		if(keyCode == 10) {
@@ -34,6 +35,10 @@ public class KeyHandler implements KeyListener {
 	// Checks if the Space key is pressed.
 		if(keyCode == 32) {
 			this.keyTyped.keySPACE();
+		}
+		//Checks if the S key is pressed.
+		if(keyCode == 83) {
+			this.keyTyped.keyS();
 		}
 	}
 

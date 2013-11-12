@@ -30,6 +30,7 @@ public class Wave {
 	boolean rootkit = false;
 
 	boolean waveSpawning;
+	boolean waveOver = true;
 
 	public Wave(Screen screen) {
 		this.screen = screen;
@@ -44,6 +45,7 @@ public class Wave {
 		this.rookkitThisRound = 0;
 
 		this.waveSpawning = true;
+		this.waveOver = false;
 
 		System.out.println("[Wave] Wave " + this.waveNumber + " incomming!");
 
@@ -64,7 +66,7 @@ public class Wave {
 	private int spawnRateVirus = 35;
 	private int spawnRateRootkit = 40;
 
-	public void spawnEnemies() {
+	public void spawnEnemies(EnemyMove[] enemyMap) {
 		if(waveNumber >= 10) {
 			spawnRate = 10;
 		}
@@ -157,11 +159,11 @@ public class Wave {
 					if(!virus) {
 						if(!rootkit) {
 							waveSpawning = false;
+							
 						}
 					}
 				}
 			}
 		}
 	}
-
 }

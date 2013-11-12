@@ -12,7 +12,11 @@ import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.image.CropImageFilter;
 import java.awt.image.FilteredImageSource;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
 import java.util.Random;
+import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -25,6 +29,7 @@ public class Screen extends JPanel implements Runnable {
 	Frame frame;
 	Wave wave;
 	User user;
+	SaveFile saveFile;
 	
 	public SpawnPoint spawn;
 
@@ -42,6 +47,7 @@ public class Screen extends JPanel implements Runnable {
 	public int finalW;
 
 	public boolean running = false;
+	public boolean userAlive = true;
 
 	public static double towerSize;
 
@@ -206,7 +212,6 @@ public class Screen extends JPanel implements Runnable {
 				terrain[x + (y * 10)] = createImage(new FilteredImageSource(terrain[x + (y * 10)].getSource(), new CropImageFilter(x *25, y*25, 25 , 25)));
 			}
 		}
-
 		running = true;
 	}
 
@@ -215,6 +220,7 @@ public class Screen extends JPanel implements Runnable {
 		System.out.println(towerSize);
 		this.scene = 1;
 		this.wave.waveNumber = 0;
+		loadSave();
 	}
 
 	public void run() {
@@ -273,9 +279,12 @@ public class Screen extends JPanel implements Runnable {
 		}
 		public void keyEnter()
 		{
-			if(!wave.waveSpawning){
+			if(!wave.waveSpawning && wave.waveOver){
 				wave.nextWave();
 			}
+		}
+		public void keyS(){
+			saveGame();
 		}
 
 	}
@@ -344,11 +353,14 @@ public class Screen extends JPanel implements Runnable {
 	}
 
 	public void update() {
+		userAlive = isUserAlive(user);
 		findFirst();
 		hackerUpdate();
 
-		if(wave.waveSpawning) {
-			wave.spawnEnemies();
+		if(wave.waveSpawning || !wave.waveOver) {
+			if(wave.waveNumber != 0){
+				wave.spawnEnemies(enemyMap);
+			}
 		}
 
 	}
@@ -360,14 +372,12 @@ public class Screen extends JPanel implements Runnable {
 		for(int i = 0; i < enemyMap.length; i++) {
 			isEnemyAlive(enemyMap[i], i);//Is the enemy alive?
 		}
-
-	}
-
-	public void towerUpdate() {
 		for(int x = 0; x < 15; x++) {
-			for(int y = 0; y < 5; y++) {
-				if(hackerMap[x][y].health <= 0) {
-					hackerMap[x][y] = null;
+			for( int y = 0; y < 5; y++) {
+				if(hackerMap[x][y] != null){
+					if(hackerMap[x][y].health <= 0) {
+						hackerMap[x][y] = null;
+					}
 				}
 			}
 		}
@@ -481,6 +491,10 @@ public class Screen extends JPanel implements Runnable {
 
 		}
 	}
+	
+	public void saveGame(){
+		SaveFile.save(hackerMap, user, wave.waveNumber);
+	}
 
 	public void spawn(int par1EnemyId) {
 		for(int i = 0; i < enemyMap.length; i++) {
@@ -498,6 +512,72 @@ public class Screen extends JPanel implements Runnable {
 				FindSpawn();
 				enemyMap[i] = (EnemyMove) new EnemyMove(Enemy.worm, spawn).clone();
 			}
+		}
+	}
+	
+	public void loadSave(){
+
+		FileInputStream file;
+		InputStreamReader reader;
+		Scanner scanner;
+		
+		int x;
+		int y;
+		int id;
+		int health;
+		
+		try {
+			file = new FileInputStream("res/save/saveFile.txt");
+			reader = new InputStreamReader(file);
+			scanner = new Scanner(reader);
+			//money, health, wave
+			
+			if(scanner.hasNext()){
+				int money = scanner.nextInt();
+				user.player.money = money;
+			}else{
+				user.player.money = user.startingMoney;
+			}
+			
+			if(scanner.hasNext()){
+				user.player.health = scanner.nextInt();
+			}else{
+				user.player.health = user.startingHealth;
+			}
+			
+			if(scanner.hasNext()){
+				wave.waveNumber = scanner.nextInt();
+			}else{
+				wave.waveNumber = 0;
+			}
+			
+			while(scanner.hasNext()){
+				x = scanner.nextInt();
+				y = scanner.nextInt();
+				id = scanner.nextInt();
+				health = scanner.nextInt();
+				
+				hackerMap[x][y] = (Hacker)Hacker.hackerList[id].clone();
+				hackerMap[x][y].health = health;
+				
+			}
+		
+		
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	public boolean isUserAlive(User user){
+ 		if(user.player != null) {
+			if(user.player.health <= 0){
+				return false;
+			}else{
+				return true;
+			}
+		}else{
+			return true;
 		}
 	}
 
