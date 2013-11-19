@@ -4,6 +4,10 @@ ViruZ is a Tower Defence game made in Java. The theme of the game is that your c
 to hire different people to protect them.
 
 Have fun!!!!!!!!!!!!!!!
+=====
+
+After doing more research I found that there is a youtube channel named Viruz or something like that.  As of 11/19/2013 at 1:21PM CST I am 
+working on a new name for the game.  
 
 =====
 
